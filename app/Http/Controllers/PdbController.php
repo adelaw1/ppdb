@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\MyLib\Form;
 use App\Models\pdb;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PdbController extends Controller
 {
@@ -12,7 +13,7 @@ class PdbController extends Controller
     {
         $data = [
             'title' => 'Penerimaan Peserta Didik Baru (PPDB)',
-            'form' => new Form
+            'form' => new Form,
         ];
 
         return view('frontend/ppdb/main', $data);

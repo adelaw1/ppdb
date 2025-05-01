@@ -114,6 +114,9 @@
         </div> <!-- .row -->
     </div> <!-- .container-fluid -->
     {{-- </main> <!-- main --> --}}
+
+    @include('sweetalert::alert')
+
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/moment.min.js"></script>
