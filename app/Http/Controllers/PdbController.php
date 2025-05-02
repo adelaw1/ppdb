@@ -14,6 +14,7 @@ class PdbController extends Controller
         $data = [
             'title' => 'Penerimaan Peserta Didik Baru (PPDB)',
             'form' => new Form,
+            'alert' => session()->has('msg') ? Alert::html('<i>Formulir</i> <u>Pendaftaran</u>', " Pendaftaran Peserta Didik Baru <b>Berhasil</b> Dikirim, <a href='/ppdb/cetak_formulir/" . session()->has('msg') . "' target='_blank'>Download Data</a> (Formulir Pendaftaran)", 'success') : ''
         ];
 
         return view('frontend/ppdb/main', $data);
@@ -30,7 +31,7 @@ class PdbController extends Controller
                 'tanggal_lahir' => 'required|date',
                 'jenis_kelamin' => 'required',
                 'email' => ($request->email ? 'email:rfc,dns' : ''),
-                'no_hp' => 'required',
+                'no_hp' => 'required|numeric',
                 'alamat' => 'required',
                 'nama_ayah' => "required|regex:/^[a-zA-Z\s'']+$/",
                 'pekerjaan_ayah' => "required|regex:/^[a-zA-Z\s'']+$/",
@@ -44,6 +45,8 @@ class PdbController extends Controller
             [
                 'jenis_kelamin.required' => 'Jenis kelamin wajib dipilih',
                 'foto.required' => 'Foto wajib diupload',
+                'nisn.unique' => 'NISN ini sudah terdaftar',
+                'nik.unique' => 'NIK ini sudah terdaftar',
             ],
         );
 
@@ -56,5 +59,10 @@ class PdbController extends Controller
 
         Pdb::create($validasi);
         return redirect('/ppdb')->with('msg', $validasi['nisn']);
+    }
+
+    public function cetak_formulir($nisn)
+    {
+        $data = Pdb::where(['nisn' => $nisn])->first();
     }
 }

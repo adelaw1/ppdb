@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('nama_ibu');
             $table->string('pekerjaan_ibu');
             $table->string('asal_sekolah');
-            $table->text('alamat_asal_sekolah');
+            $table->text('alamat_asal_sekolah')->nullable();
             $table->string('foto')->nullable();
             $table->string('berkas_persyaratan')->nullable();
             $table->timestamps();

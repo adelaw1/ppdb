@@ -11,5 +11,6 @@ Route::controller(PdbController::class)->group(function () {
     Route::prefix('/ppdb')->group(function () {
         Route::get('/', 'index');
         Route::post('/', 'save_formulir');
+        Route::get('/{nisn}', 'cetak_formulir');
     });
 });
