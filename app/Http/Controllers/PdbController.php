@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\MyLib\Form;
-use App\Models\pdb;
+use App\Models\Pdb;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -17,7 +19,7 @@ class PdbController extends Controller
             'alert' => session()->has('msg') ? Alert::html('<i>Formulir</i> <u>Pendaftaran</u>', " Pendaftaran Peserta Didik Baru <b>Berhasil</b> Dikirim, <a href='/ppdb/cetak_formulir/" . session()->has('msg') . "' target='_blank'>Download Data</a> (Formulir Pendaftaran)", 'success') : ''
         ];
 
-        return view('frontend/ppdb/main', $data);
+        return view('frontend.ppdb.main', $data);
     }
 
     public function save_formulir(Request $request)
@@ -63,6 +65,13 @@ class PdbController extends Controller
 
     public function cetak_formulir($nisn)
     {
-        $data = Pdb::where(['nisn' => $nisn])->first();
+        $data = [
+            'rows' => Pdb::where(['nisn' => $nisn])->get(),
+            'tgl_id' => new Carbon(),
+        ];
+        $pdf = Pdf::loadView('frontend.ppdb.cetak_formulir', $data);
+        $pdf->setPaper('A4', 'potrait');
+        $pdf->setOption(['dpi' => 150, 'defaultFont' => 'Arial']);
+        return $pdf->stream();
     }
 }
