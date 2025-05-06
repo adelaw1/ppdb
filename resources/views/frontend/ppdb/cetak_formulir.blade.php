@@ -115,6 +115,14 @@
             width: 70%;
             border-bottom: 1px dotted grey;
         }
+
+        .footer {
+            width: 100%;
+            position: relative;
+            text-align: center;
+            margin-top: 30px;
+            height: 200px;
+        }
     </style>
 </head>
 
@@ -238,6 +246,22 @@
                     </ol>
                 </div>
 
+            </div>
+
+            <div class="footer">
+                <div class="fkiri">
+                    <img src="storage/{{ $row->foto }}" width="130px" alt="Foto {{ $row->nama }}">
+                </div>
+                <div class="ftengah">
+                    <img src="{{ $qrcode->render($row->nisn) }}" alt="/ppdb/qrcode">
+                </div>
+                <div class="fkanan">
+                    <p>
+                        Tirtayasa, {{ $tgl_id->parse($row->created_at)->isoFormat('D MMMM Y') }}<br />
+                        Calon Peserta Didik<br /><br /><br />
+                        <strong>{{ $row->nama_lengkap }}</strong>
+                    </p>
+                </div>
             </div>
 
         </div>

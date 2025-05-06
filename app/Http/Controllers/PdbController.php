@@ -6,6 +6,7 @@ use App\Http\Controllers\MyLib\Form;
 use App\Models\Pdb;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use chillerlan\QRCode\QRCode;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -68,6 +69,7 @@ class PdbController extends Controller
         $data = [
             'rows' => Pdb::where(['nisn' => $nisn])->get(),
             'tgl_id' => new Carbon(),
+            'qrcode' => new QRCode(),
         ];
         $pdf = Pdf::loadView('frontend.ppdb.cetak_formulir', $data);
         $pdf->setPaper('A4', 'potrait');
