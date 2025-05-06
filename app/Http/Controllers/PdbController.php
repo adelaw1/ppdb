@@ -17,7 +17,7 @@ class PdbController extends Controller
         $data = [
             'title' => 'Penerimaan Peserta Didik Baru (PPDB)',
             'form' => new Form,
-            'alert' => session()->has('msg') ? Alert::html('<i>Formulir</i> <u>Pendaftaran</u>', " Pendaftaran Peserta Didik Baru <b>Berhasil</b> Dikirim, <a href='/ppdb/cetak_formulir/" . session()->has('msg') . "' target='_blank'>Download Data</a> (Formulir Pendaftaran)", 'success') : ''
+            'alert' => session()->has('msg') ? Alert::html('<i>Formulir</i> <u>Pendaftaran</u>', " Pendaftaran Peserta Didik Baru <b>Berhasil</b> Dikirim, <a href='/ppdb/" . session('msg') . "' target='_blank'>Download Data</a> (Formulir Pendaftaran)", 'success') : ''
         ];
 
         return view('frontend.ppdb.main', $data);
