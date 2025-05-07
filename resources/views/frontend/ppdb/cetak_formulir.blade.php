@@ -113,7 +113,7 @@
 
         .content .body .tdata tr td:last-child {
             width: 70%;
-            border-bottom: 1px dotted grey;
+            border-bottom: 1px dotted rgb(88, 88, 88);
         }
 
         .footer {
@@ -121,7 +121,35 @@
             position: relative;
             text-align: center;
             margin-top: 30px;
-            height: 200px;
+            height: 155px;
+        }
+
+        .footer .fkiri {
+            float: left;
+            width: 50%;
+            text-align: left;
+        }
+
+        .footer .fkiri img {
+            width: 170px;
+        }
+
+        .footer .fkanan {
+            float: right;
+            width: 50%;
+            position: relative;
+        }
+
+        .footer .fkanan img {
+            width: 110px;
+            height: 155px;
+            float: left;
+            margin-right: 20px;
+        }
+
+        .footer .fkanan p {
+            text-align: left;
+            margin: 0 0 0 130px;
         }
     </style>
 </head>
@@ -198,7 +226,7 @@
                                     <td>{{ $row->alamat ?: '-' }}</td>
                                 </tr>
                             </table>
-                            <br /><br />
+                            <br />
                         </li>
 
                         <li>
@@ -225,7 +253,7 @@
                                     <td>{{ $row->pekerjaan_ibu }}</td>
                                 </tr>
                             </table>
-                            <br /><br />
+                            <br />
                         </li>
 
                         <li>
@@ -250,12 +278,11 @@
 
             <div class="footer">
                 <div class="fkiri">
-                    <img src="storage/{{ $row->foto }}" width="130px" alt="Foto {{ $row->nama }}">
-                </div>
-                <div class="ftengah">
-                    <img src="{{ $qrcode->render($row->nisn) }}" alt="/ppdb/qrcode">
+                    <img src="{{ $qrcode->render(url("/ppdb/status/$row->nisn")) }}" alt="Cek Status">
+                    <small>{{ url("/ppdb/status/$row->nisn") }}</small>
                 </div>
                 <div class="fkanan">
+                    <img src="storage/{{ $row->foto }}" alt="Foto {{ $row->nama }}">
                     <p>
                         Tirtayasa, {{ $tgl_id->parse($row->created_at)->isoFormat('D MMMM Y') }}<br />
                         Calon Peserta Didik<br /><br /><br />

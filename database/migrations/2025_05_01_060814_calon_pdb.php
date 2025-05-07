@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('calon_pdb', function (Blueprint $table) {
             $table->id();
+            $table->string('no_pendaftaran')->unique();
             $table->string('nisn', 10)->unique();
             $table->string('nik', 16)->unique();
             $table->string('nama_lengkap');
@@ -30,6 +31,7 @@ return new class extends Migration
             $table->text('alamat_asal_sekolah')->nullable();
             $table->string('foto')->nullable();
             $table->string('berkas_persyaratan')->nullable();
+            $table->enum('status', ['pendaftaran', 'verifikasi', 'terima'])->default('pendaftaran');
             $table->timestamps();
         });
     }

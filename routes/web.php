@@ -12,5 +12,6 @@ Route::controller(PdbController::class)->group(function () {
         Route::get('/', 'index');
         Route::post('/', 'save_formulir');
         Route::get('/{nisn}', 'cetak_formulir');
+        Route::get('/status/{nisn}', 'cek_status');
     });
 });

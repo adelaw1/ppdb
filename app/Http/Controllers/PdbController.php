@@ -60,6 +60,8 @@ class PdbController extends Controller
             $validasi['berkas_persyaratan'] = $request->file('berkas_persyaratan')->store('assets/archive/berkas_persyaratan/');
         }
 
+        $validasi['no_pendaftaran'] = date('Ymd') . '.PDBSMKAMS.' . (count(Pdb::all()) < 10 ? "000" . count(Pdb::all()) : (count(Pdb::all()) + 1 < 100 ? "00" . count(Pdb::all()) + 1 : (count(Pdb::all()) + 1 < 1000 ? "0" . count(Pdb::all()) + 1 : count(Pdb::all()) + 1)));
+
         Pdb::create($validasi);
         return redirect('/ppdb')->with('msg', $validasi['nisn']);
     }
@@ -74,6 +76,17 @@ class PdbController extends Controller
         $pdf = Pdf::loadView('frontend.ppdb.cetak_formulir', $data);
         $pdf->setPaper('A4', 'potrait');
         $pdf->setOption(['dpi' => 150, 'defaultFont' => 'Arial']);
-        return $pdf->stream();
+        return $pdf->download('Formulir Pendaftaran.pdf');
+    }
+
+    public function cek_status($nisn)
+    {
+        $data = [
+            'title' => 'Status Pendaftaran PPDB',
+            'rows' => Pdb::where(['nisn' => $nisn])->first(),
+            'tgl_id' => new Carbon(),
+        ];
+
+        return view('frontend.ppdb.status', $data);
     }
 }
