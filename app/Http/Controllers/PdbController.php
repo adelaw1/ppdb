@@ -43,7 +43,7 @@ class PdbController extends Controller
                 'asal_sekolah' => 'required',
                 'alamat_asal_sekolah' => '',
                 'foto' => 'required|mimes:jpg,jpeg,png|file|max:1024',
-                'berkas_persyaratan' => ($request->file('berkas_persyaratan') ? 'extensions:zip,rar|file|max:2048' : ''),
+                // 'berkas_persyaratan' => ($request->file('berkas_persyaratan') ? 'extensions:zip,rar|file|max:2048' : ''),
             ],
             [
                 'jenis_kelamin.required' => 'Jenis kelamin wajib dipilih',
@@ -56,11 +56,11 @@ class PdbController extends Controller
         if ($request->file('foto')) {
             $validasi['foto'] = $request->file('foto')->store('assets/archive/foto/');
         }
-        if ($request->file('berkas_persyaratan')) {
-            $validasi['berkas_persyaratan'] = $request->file('berkas_persyaratan')->store('assets/archive/berkas_persyaratan/');
-        }
+        // if ($request->file('berkas_persyaratan')) {
+        //     $validasi['berkas_persyaratan'] = $request->file('berkas_persyaratan')->store('assets/archive/berkas_persyaratan/');
+        // }
 
-        $validasi['no_pendaftaran'] = date('Ymd') . '.PDBSMKAMS.' . (count(Pdb::all()) < 10 ? "000" . count(Pdb::all()) : (count(Pdb::all()) + 1 < 100 ? "00" . count(Pdb::all()) + 1 : (count(Pdb::all()) + 1 < 1000 ? "0" . count(Pdb::all()) + 1 : count(Pdb::all()) + 1)));
+        $validasi['no_pendaftaran'] = date('Ymd') . '.PDBSMKAMS.' . (count(Pdb::all()) + 1 < 10 ? "000" . count(Pdb::all()) + 1 : (count(Pdb::all()) + 1 < 100 ? "00" . count(Pdb::all()) + 1 : (count(Pdb::all()) + 1 < 1000 ? "0" . count(Pdb::all()) + 1 : count(Pdb::all()) + 1)));
 
         Pdb::create($validasi);
         return redirect('/ppdb')->with('msg', $validasi['nisn']);

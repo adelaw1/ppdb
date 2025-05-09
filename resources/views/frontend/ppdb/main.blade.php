@@ -53,7 +53,7 @@
                     {!! $form->frm_text('asal_sekolah', 'tag', old('asal_sekolah')) !!}
                     {!! $form->frm_textarea('alamat_asal_sekolah', 'home', old('alamat_asal_sekolah')) !!}
                     {!! $form->frm_file('foto', 'image', old('foto')) !!}
-                    {!! $form->frm_file('berkas_persyaratan', 'package', old('berkas_persyaratan')) !!}
+                    {{-- {!! $form->frm_file('berkas_persyaratan', 'package', old('berkas_persyaratan')) !!} --}}
 
                 </div>
 
